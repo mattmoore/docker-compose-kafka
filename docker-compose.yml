@@ -2,7 +2,7 @@ version: '3'
 
 services:
   kafka:
-    image: mattmoore/kafka-development
+    image: mattmoore/kafka
     ports:
       - '9092:9092'
     entrypoint:
@@ -16,7 +16,7 @@ services:
     depends_on:
       - 'zookeeper'
   zookeeper:
-    image: mattmoore/kafka-development
+    image: mattmoore/kafka-zookeeper
     ports:
       - '2181:2181'
     entrypoint:
