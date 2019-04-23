@@ -5,21 +5,11 @@ services:
     image: mattmoore/kafka
     ports:
       - '9092:9092'
-    entrypoint:
-      - 'sh'
-      - '/kafka/bin/kafka-server-start.sh'
-      - '/kafka/config/server.properties'
-      - '--override'
-      - 'zookeeper.connect=zookeeper:2181'
-      - '--override'
-      - 'advertised.listeners=PLAINTEXT://127.0.0.1:9092'
+    entrypoint: '/docker-entrypoint.sh'
     depends_on:
       - 'zookeeper'
   zookeeper:
     image: mattmoore/kafka-zookeeper
     ports:
       - '2181:2181'
-    entrypoint:
-      - 'sh'
-      - '/kafka/bin/zookeeper-server-start.sh'
-      - '/kafka/config/zookeeper.properties'
+    entrypoint: '/docker-entrypoint.sh'
