@@ -1,6 +1,6 @@
-# Kafka Docker Compose
+# Kafka Standalone
 
-Kafka and Zookeeper dockerized and orchestrated with docker compose.
+Kafka dockerized for local developer machine setup.
 
 # Instructions
 

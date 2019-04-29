@@ -1,15 +1,34 @@
 version: '3'
 
 services:
-  kafka:
-    image: mattmoore/kafka
+  kafka-client:
+    image: mattmoore/kafka-broker
+    depends_on:
+      - 'broker'
+      - 'zookeeper'
+
+  broker:
+    image: mattmoore/kafka-broker
     ports:
       - '9092:9092'
-    entrypoint: '/docker-entrypoint.sh'
+    entrypoint:
+      - 'sh'
+      - '/kafka/bin/kafka-server-start.sh'
+      - '/kafka/config/server.properties'
+      - '--override'
+      - 'zookeeper.connect=zookeeper:2181'
+      - '--override'
+      - 'listeners=PLAINTEXT://0.0.0.0:9092'
+      - '--override'
+      - 'advertised.listeners=PLAINTEXT://localhost:9092'
     depends_on:
       - 'zookeeper'
+
   zookeeper:
     image: mattmoore/kafka-zookeeper
     ports:
       - '2181:2181'
-    entrypoint: '/docker-entrypoint.sh'
+    entrypoint:
+      - 'sh'
+      - '/kafka/bin/zookeeper-server-start.sh'
+      - '/kafka/config/zookeeper.properties'
