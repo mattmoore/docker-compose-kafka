@@ -18,9 +18,13 @@ services:
       - '--override'
       - 'zookeeper.connect=zookeeper:2181'
       - '--override'
-      - 'listeners=PLAINTEXT://0.0.0.0:9092'
+      - 'listeners=EXTERNAL://0.0.0.0:9092,INTERNAL://broker:29092'
       - '--override'
-      - 'advertised.listeners=PLAINTEXT://localhost:9092'
+      - 'advertised.listeners=EXTERNAL://localhost:9092,INTERNAL://broker:29092'
+      - '--override'
+      - 'listener.security.protocol.map=EXTERNAL:PLAINTEXT,INTERNAL:PLAINTEXT'
+      - '--override'
+      - 'inter.broker.listener.name=INTERNAL'
     depends_on:
       - 'zookeeper'
 
